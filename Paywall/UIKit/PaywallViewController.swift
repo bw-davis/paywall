@@ -17,9 +17,11 @@ class PaywallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = DisneyStreamingPaywallView()
+        self.view = paywallView
         
+        paywallView.setup(from: paywallModel)
     }
+    
     func didShake() {
     // TODO: Reload the paywall whenever the shake gesture occurs
     }

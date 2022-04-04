@@ -10,16 +10,15 @@ import Foundation
 import UIKit
 
 class LabelDisplayModel {
-    public var title: String?
-    public var color: UIColor?
-    public var weight: UIFont.Weight?
-    public var alignment: NSTextAlignment?
-}
-
-class LabelResponseModel: Decodable {
-    public var title: String?
-    public var color: String?
-    public var weight: String?
-    public var alignment: String?
-    public var identifier: String?
+    var title: String
+    var textColor: UIColor
+    var weight: UIFont.Weight
+    var alignment: NSTextAlignment
+    
+    public init(title: String, textColor: UIColor, weight: UIFont.Weight, alignment: NSTextAlignment) {
+        self.title = title
+        self.textColor = textColor
+        self.weight = weight
+        self.alignment = alignment
+    }
 }

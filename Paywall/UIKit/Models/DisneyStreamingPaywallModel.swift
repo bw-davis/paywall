@@ -9,37 +9,45 @@
 import Foundation
 import UIKit
 
-public class DisneyStreamingResponseModel: Decodable {
-    var backgroundImage: String?
-    var backgroundColor: String?
-    var brandsImage: String?
-    var logoImage: String?
-    var logoLabel: String?
-}
-
-
 public class DisneyStreamingPaywallDisplayModel {
     var backgroundColor: UIColor?
+    
     var backgroundImage: UIImage?
     var brandsImage: UIImage?
     var logoImage: UIImage?
-    var logoLabelDisplayModel: LabelDisplayModel?
-    var signUpLabelDisplayModel: LabelDisplayModel?
+    
+    var mainLabelDisplayModel: LabelDisplayModel?
+    var secondaryLabelDisplayModel: LabelDisplayModel?
+    
+    var sku: String?
     
     init() {
         backgroundColor = UIColor.init(hex: "#1A1D28FF")
         
+        // set the images
         backgroundImage = getImage(from: "http://localhost:8000/images/splash2.png")
         brandsImage = getImage(from: "http://localhost:8000/images/brands2.png")
         logoImage = getImage(from: "http://localhost:8000/images/logo2.png")
         
-        logoLabelDisplayModel = LabelDisplayModel()
+        // make the label display models
+        let mainTextColor = UIColor.init(hex: "#F8F8FFFF") ?? UIColor()
+        mainLabelDisplayModel = LabelDisplayModel(title: "The best stories in all the world, all in one place.",
+                                                  textColor: mainTextColor,
+                                                  weight: .bold,
+                                                  alignment: .center)
+        
+        let secondaryTextColor = UIColor.init(hex: "#F8F8FFFF") ?? UIColor()
+        secondaryLabelDisplayModel = LabelDisplayModel(title: "Start streaming Disney+ with your 7 day free trial, then only 6.99/month",
+                                                       textColor: secondaryTextColor,
+                                                       weight: .light,
+                                                       alignment: .center)
+        
+        sku = "dplus_free_trial"
     }
 }
 
 extension DisneyStreamingPaywallDisplayModel {
     func getImage(from string: String) -> UIImage? {
-        //2. Get valid URL
         guard let url = URL(string: string)
             else {
                 print("Failed to make URL")
@@ -48,10 +56,8 @@ extension DisneyStreamingPaywallDisplayModel {
 
         var image: UIImage? = nil
         do {
-            //3. Get valid data
             let data = try Data(contentsOf: url, options: [])
 
-            //4. Make image
             image = UIImage(data: data)
         }
         catch {
@@ -60,4 +66,33 @@ extension DisneyStreamingPaywallDisplayModel {
 
         return image
     }
+}
+
+public struct PaywallResponseModel: Codable {
+    var meta: Meta
+    var components: [String : Components]
+    var brandsImage: String?
+    var logoImage: String?
+    var mainLabel: String?
+}
+
+public struct Components: Codable {
+    let componentType: ComponentType
+}
+
+public struct Meta: Codable {
+    let backgroundImage: String
+    let backgroundColor: String
+    let sku: String
+    let type: PaywallType
+}
+
+public enum PaywallType: String, Codable {
+    case disneyStreaming
+    case espn
+}
+
+public enum ComponentType: String, Codable {
+    case labels
+    case images
 }

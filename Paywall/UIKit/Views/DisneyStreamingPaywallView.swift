@@ -12,83 +12,106 @@ import UIKit
 public class DisneyStreamingPaywallView: UIView {
     var backgroundView = UIView()
     var lineSeparator = UIView()
+        
     var backgroundImageView = UIImageView()
-    var bgColor = UIColor()
     var brandsImageView = UIImageView()
     var logoImageView = UIImageView()
+    
     var mainLabel = UILabel()
-    var signUpButton = UIButton()
     var secondaryLabel = UILabel()
     
+    var signUpButton = UIButton()
     var loginButton = UIButton()
     
     private var largePadding: CGFloat = 50.0
     private var smallPadding: CGFloat = 8.0
-    private var logoLabelFontSize: CGFloat = 17.0
-    private var signUpButtonFont: CGFloat = 16.0
+    
     private var signUpInfoLabelFont: CGFloat = 14.0
+    private var signUpButtonFont: CGFloat = 16.0
+    private var logoLabelFontSize: CGFloat = 17.0
+    
     private var labelAndButtonHeight: CGFloat = 52.0
+    
+    private var alertSku: String = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setup()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
-        backgroundView.backgroundColor = UIColor.init(hex: "#1A1D28FF")
+    func setup(from displayModel: DisneyStreamingPaywallDisplayModel) {
+        if let sku = displayModel.sku {
+            alertSku = sku
+        }
+        
+        backgroundView.backgroundColor = displayModel.backgroundColor
         addSubview(backgroundView)
         
-        let backgroundImage = getImage(from: "http://localhost:8000/images/splash2.png")
-        backgroundImageView.image = backgroundImage
-        backgroundView.addSubview(backgroundImageView)
+        // setup background image
+        if let backgroundImage = displayModel.backgroundImage {
+            backgroundImageView.image = backgroundImage
+            backgroundView.addSubview(backgroundImageView)
+        }
         
-        let logoImage = getImage(from: "http://localhost:8000/images/logo2.png")
-        logoImageView.image = logoImage
-        backgroundView.addSubview(logoImageView)
+        // setup logo image
+        if let logoImage = displayModel.logoImage {
+            logoImageView.image = logoImage
+            backgroundView.addSubview(logoImageView)
+        }
         
-        mainLabel.text = "The best stories in all the world, all in one place."
-        mainLabel.font = UIFont.systemFont(ofSize: logoLabelFontSize, weight: .bold)
-        mainLabel.textAlignment = .center
-        mainLabel.numberOfLines = 0
-        mainLabel.textColor = UIColor.init(hex: "#F8F8FFFF")
-        mainLabel.backgroundColor = .clear
-        backgroundView.addSubview(mainLabel)
+        // setup main label
+        if let mainLabelDisplayModel = displayModel.mainLabelDisplayModel {
+            mainLabel.text = mainLabelDisplayModel.title
+            mainLabel.font = UIFont.systemFont(ofSize: logoLabelFontSize, weight: mainLabelDisplayModel.weight)
+            mainLabel.textAlignment = mainLabelDisplayModel.alignment
+            mainLabel.numberOfLines = 0
+            mainLabel.textColor = mainLabelDisplayModel.textColor
+            mainLabel.backgroundColor = .clear
+            backgroundView.addSubview(mainLabel)
+        }
         
-        let brandsImage = getImage(from: "http://localhost:8000/images/brands2.png")
-        brandsImageView.image = brandsImage
-        backgroundView.addSubview(brandsImageView)
+        // setup brands image
+        if let brandsImage = displayModel.brandsImage {
+            brandsImageView.image = brandsImage
+            backgroundView.addSubview(brandsImageView)
+        }
         
         let buttonTitleText = "SIGN UP NOW"
         signUpButton.setTitle(buttonTitleText, for: .normal)
         signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: signUpButtonFont, weight: .semibold)
         signUpButton.tintColor = UIColor.init(hex: "#0172D2FF")
         signUpButton.backgroundColor = UIColor.init(hex: "#0172D2FF")
-//        signUpButton.addTarget(<#T##target: Any?##Any?#>, action: <#T##Selector#>, for: <#T##UIControl.Event#>)
+        signUpButton.addTarget(self, action:#selector(showAlert), for: .touchUpInside)
         backgroundView.addSubview(signUpButton)
         
-        secondaryLabel.text = "Start streaming Disney+ with your 7 day free trial, then only 6.99/month"
-        secondaryLabel.font = UIFont.systemFont(ofSize: signUpInfoLabelFont, weight: .regular)
-        secondaryLabel.textAlignment = .center
-        secondaryLabel.numberOfLines = 0
-        secondaryLabel.textColor = .lightText
-        secondaryLabel.backgroundColor = .clear
-        backgroundView.addSubview(secondaryLabel)
-        
+        // setup secondady label
+        if let secondaryLabelDisplayModel = displayModel.secondaryLabelDisplayModel {
+            secondaryLabel.text = secondaryLabelDisplayModel.title
+            secondaryLabel.font = UIFont.systemFont(ofSize: signUpInfoLabelFont, weight: secondaryLabelDisplayModel.weight)
+            secondaryLabel.textAlignment = secondaryLabelDisplayModel.alignment
+            secondaryLabel.numberOfLines = 0
+            secondaryLabel.textColor = secondaryLabelDisplayModel.textColor
+            secondaryLabel.backgroundColor = .clear
+            backgroundView.addSubview(secondaryLabel)
+        }
+
+        // setup line separator
         lineSeparator.backgroundColor = UIColor.white
         backgroundView.addSubview(lineSeparator)
         
-        loginButton.setTitle("Log In", for: .normal)
+        let loginTitleText = "Log In"
+        loginButton.setTitle(loginTitleText, for: .normal)
         loginButton.titleLabel?.font = UIFont.systemFont(ofSize: logoLabelFontSize, weight: .semibold)
         loginButton.backgroundColor = .clear
         loginButton.tintColor = .clear
         backgroundView.addSubview(loginButton)
     }
     
+    // setup the frames for the view
     public override func layoutSubviews() {
         backgroundView.frame = CGRect(x: 0.0, y: 0.0, width: bounds.width, height: bounds.height)
         
@@ -146,29 +169,15 @@ public class DisneyStreamingPaywallView: UIView {
                                 height: size.height)
         loginButton.frame = loginFrame
     }
-}
-
-extension DisneyStreamingPaywallView {
-    func getImage(from string: String) -> UIImage? {
-        //2. Get valid URL
-        guard let url = URL(string: string)
-            else {
-                print("Failed to make URL")
-                return nil
-        }
-
-        var image: UIImage? = nil
-        do {
-            //3. Get valid data
-            let data = try Data(contentsOf: url, options: [])
-
-            //4. Make image
-            image = UIImage(data: data)
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-
-        return image
+    
+    @objc
+    func showAlert() {
+        let alertController = UIAlertController(title: nil,
+                                                message: "Purchase \(alertSku)",
+                                                preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Purchase", style: .default))
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        
+        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
 }
