@@ -1,7 +1,8 @@
 {
   "meta": {
-    "backgroundImage": "http://localhost:8000/images/splash.png",
-    "backgroundColor": "#1A1D28FF"
+    "backgroundImage": "http://localhost:8000/images/splash2.png",
+    "backgroundColor": "#1A1D28FF",
+    "type": "disneyStreaming"
   },
   "components": [
     {
@@ -9,7 +10,26 @@
       "title": "The best stories in all the world, all in one place.",
       "color": "#F8F8FFFF",
       "weight": "bold",
-      "alignment": "center"
+      "alignment": "center",
+      "identifier": "mainLabel"
+    },
+    {
+      "type": "label",
+      "title": "Start streaming Disney+ with your 7 day free trial, then only 6.99/month",
+      "color": "#F8F8FFFF",
+      "weight": "regular",
+      "alignment": "center",
+      "identifier": "mainLabel"
+    },
+    {
+      "type": "image",
+      "name": "http://localhost:8000/images/logo2.png",
+      "identifier": "logoImage"
+    },
+    {
+      "type": "image",
+      "name": "http://localhost:8000/images/brands2.png",
+      "identifier": "brandImage"
     }
   ]
 }

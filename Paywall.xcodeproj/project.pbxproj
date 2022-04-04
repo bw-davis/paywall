@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		307430712719D4AA001FA496 /* UIColorHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307430702719D4AA001FA496 /* UIColorHelpers.swift */; };
+		4F7538F127FA25EC00B9FC90 /* DisneyStreamingPaywallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7538F027FA25EC00B9FC90 /* DisneyStreamingPaywallModel.swift */; };
+		4F7538F327FA260100B9FC90 /* ESPNPaywallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7538F227FA260100B9FC90 /* ESPNPaywallModel.swift */; };
+		4F7538F527FA264C00B9FC90 /* DisneyStreamingPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7538F427FA264C00B9FC90 /* DisneyStreamingPaywallView.swift */; };
+		4F7538F727FA265700B9FC90 /* ESPNPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7538F627FA265700B9FC90 /* ESPNPaywallView.swift */; };
+		4F7538F927FA27BD00B9FC90 /* LabelDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7538F827FA27BD00B9FC90 /* LabelDisplayModel.swift */; };
 		C3E0C60B25239C310034987E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E0C60A25239C310034987E /* AppDelegate.swift */; };
 		C3E0C60D25239C310034987E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E0C60C25239C310034987E /* SceneDelegate.swift */; };
 		C3E0C60F25239C310034987E /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E0C60E25239C310034987E /* PaywallView.swift */; };
@@ -35,6 +40,11 @@
 
 /* Begin PBXFileReference section */
 		307430702719D4AA001FA496 /* UIColorHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHelpers.swift; sourceTree = "<group>"; };
+		4F7538F027FA25EC00B9FC90 /* DisneyStreamingPaywallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisneyStreamingPaywallModel.swift; sourceTree = "<group>"; };
+		4F7538F227FA260100B9FC90 /* ESPNPaywallModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESPNPaywallModel.swift; sourceTree = "<group>"; };
+		4F7538F427FA264C00B9FC90 /* DisneyStreamingPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisneyStreamingPaywallView.swift; sourceTree = "<group>"; };
+		4F7538F627FA265700B9FC90 /* ESPNPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESPNPaywallView.swift; sourceTree = "<group>"; };
+		4F7538F827FA27BD00B9FC90 /* LabelDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDisplayModel.swift; sourceTree = "<group>"; };
 		C3E0C60725239C310034987E /* Paywall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paywall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E0C60A25239C310034987E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E0C60C25239C310034987E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +82,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F7538EA27FA184A00B9FC90 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4F7538F427FA264C00B9FC90 /* DisneyStreamingPaywallView.swift */,
+				4F7538F627FA265700B9FC90 /* ESPNPaywallView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4F7538EB27FA186900B9FC90 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4F7538F027FA25EC00B9FC90 /* DisneyStreamingPaywallModel.swift */,
+				4F7538F227FA260100B9FC90 /* ESPNPaywallModel.swift */,
+				4F7538F827FA27BD00B9FC90 /* LabelDisplayModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C3E0C5FE25239C310034987E = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +152,8 @@
 		C3E0C62C25239D270034987E /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				4F7538EB27FA186900B9FC90 /* Models */,
+				4F7538EA27FA184A00B9FC90 /* Views */,
 				C3E0C62F25239D4B0034987E /* PaywallViewController.swift */,
 			);
 			path = UIKit;
@@ -256,13 +287,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F7538F527FA264C00B9FC90 /* DisneyStreamingPaywallView.swift in Sources */,
+				4F7538F927FA27BD00B9FC90 /* LabelDisplayModel.swift in Sources */,
 				C3E0C60B25239C310034987E /* AppDelegate.swift in Sources */,
+				4F7538F327FA260100B9FC90 /* ESPNPaywallModel.swift in Sources */,
 				C3E0C63225239F7A0034987E /* SwiftUIShakeHandling.swift in Sources */,
 				C3E0C60D25239C310034987E /* SceneDelegate.swift in Sources */,
 				C3E0C60F25239C310034987E /* PaywallView.swift in Sources */,
 				307430712719D4AA001FA496 /* UIColorHelpers.swift in Sources */,
 				C3E0C63025239D4B0034987E /* PaywallViewController.swift in Sources */,
 				C3E0C63A2523A1A10034987E /* NetworkingHelpers.swift in Sources */,
+				4F7538F127FA25EC00B9FC90 /* DisneyStreamingPaywallModel.swift in Sources */,
+				4F7538F727FA265700B9FC90 /* ESPNPaywallView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

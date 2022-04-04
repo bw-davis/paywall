@@ -8,10 +8,21 @@
 import UIKit
 
 class PaywallViewController: UIViewController {
-
-  func didShake() {
+    var paywallView = DisneyStreamingPaywallView()
+    var paywallModel = DisneyStreamingPaywallDisplayModel()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view = DisneyStreamingPaywallView()
+        
+    }
+    func didShake() {
     // TODO: Reload the paywall whenever the shake gesture occurs
-  }
+    }
 
 }
 
