@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class DisneyStreamingPaywallView: UIView {
+public class DisneyStreamingPaywallView: UIView, PaywallViewProtocol {
     var backgroundView = UIView()
     var lineSeparator = UIView()
         
@@ -43,28 +43,28 @@ public class DisneyStreamingPaywallView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(from displayModel: DisneyStreamingPaywallDisplayModel) {
-        if let sku = displayModel.sku {
+    func setup(from model: DisneyStreamingPaywallModel) {
+        if let sku = model.sku {
             alertSku = sku
         }
         
-        backgroundView.backgroundColor = displayModel.backgroundColor
+        backgroundView.backgroundColor = model.backgroundColor
         addSubview(backgroundView)
         
         // setup background image
-        if let backgroundImage = displayModel.backgroundImage {
+        if let backgroundImage = model.backgroundImage {
             backgroundImageView.image = backgroundImage
             backgroundView.addSubview(backgroundImageView)
         }
         
         // setup logo image
-        if let logoImage = displayModel.logoImage {
+        if let logoImage = model.logoImage {
             logoImageView.image = logoImage
             backgroundView.addSubview(logoImageView)
         }
         
         // setup main label
-        if let mainLabelDisplayModel = displayModel.mainLabelDisplayModel {
+        if let mainLabelDisplayModel = model.mainLabelDisplayModel {
             mainLabel.text = mainLabelDisplayModel.title
             mainLabel.font = UIFont.systemFont(ofSize: logoLabelFontSize, weight: mainLabelDisplayModel.weight)
             mainLabel.textAlignment = mainLabelDisplayModel.alignment
@@ -75,7 +75,7 @@ public class DisneyStreamingPaywallView: UIView {
         }
         
         // setup brands image
-        if let brandsImage = displayModel.brandsImage {
+        if let brandsImage = model.brandsImage {
             brandsImageView.image = brandsImage
             backgroundView.addSubview(brandsImageView)
         }
@@ -89,7 +89,7 @@ public class DisneyStreamingPaywallView: UIView {
         backgroundView.addSubview(signUpButton)
         
         // setup secondady label
-        if let secondaryLabelDisplayModel = displayModel.secondaryLabelDisplayModel {
+        if let secondaryLabelDisplayModel = model.secondaryLabelDisplayModel {
             secondaryLabel.text = secondaryLabelDisplayModel.title
             secondaryLabel.font = UIFont.systemFont(ofSize: signUpInfoLabelFont, weight: secondaryLabelDisplayModel.weight)
             secondaryLabel.textAlignment = secondaryLabelDisplayModel.alignment

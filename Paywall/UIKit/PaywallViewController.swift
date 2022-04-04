@@ -9,7 +9,7 @@ import UIKit
 
 class PaywallViewController: UIViewController {
     var paywallView = DisneyStreamingPaywallView()
-    var paywallModel = DisneyStreamingPaywallDisplayModel()
+    var paywallModel = DisneyStreamingPaywallModel()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
